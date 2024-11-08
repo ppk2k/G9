@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman Terkunci</title>
+    <title>Halaman Penjara Tingkat Tinggi</title>
     <style>
-        /* Menonaktifkan scroll dan pointer events */
         body {
             overflow: hidden;  /* Menonaktifkan scroll */
             pointer-events: none;  /* Menonaktifkan klik */
@@ -20,78 +19,80 @@
     </style>
 </head>
 <body>
-    <h1>Halaman Terkunci</h1>
-    <p>Anda tidak bisa meninggalkan halaman ini kecuali mematikan perangkat.</p>
+    <h1>Halaman Terkunci - Penjara Tingkat Tinggi</h1>
+    <p>Anda tidak dapat meninggalkan halaman ini. Satu-satunya cara keluar adalah mematikan perangkat Anda.</p>
 
     <script>
-        // Mencegah refresh dengan tombol F5 dan Ctrl+R
+        // Mencegah refresh halaman (F5 dan Ctrl+R)
         document.onkeydown = function(e) {
             if (e.key === 'F5' || (e.ctrlKey && e.key === 'r')) {
                 e.preventDefault();  // Mencegah refresh halaman
             }
         };
 
-        // Mencegah keluar dengan tombol back atau navigasi
+        // Mencegah tombol Back dan tombol navigasi lainnya
         history.pushState(null, null, location.href);
         window.onpopstate = function () {
             history.pushState(null, null, location.href);  // Menjaga halaman tetap sama
         };
 
-        // Mencegah klik kanan pada halaman
+        // Mencegah klik kanan
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();  // Mencegah menu klik kanan muncul
         });
 
-        // Mencegah pengguna menggulir halaman
+        // Mencegah menggulir halaman
         window.onwheel = function(e) {
             e.preventDefault();  // Menonaktifkan scroll mouse
         };
 
-        // Mencegah penggunaan tombol panah untuk navigasi
+        // Mencegah penggunaan tombol arah untuk navigasi
         document.onkeydown = function(e) {
             if (e.key === "ArrowUp" || e.key === "ArrowDown" || e.key === "ArrowLeft" || e.key === "ArrowRight") {
                 e.preventDefault();  // Mencegah penggunaan tombol panah
             }
         };
 
-        // Mencegah form submit dan interaksi lain
+        // Menonaktifkan Tab untuk berpindah antar elemen
+        document.onkeydown = function(e) {
+            if (e.key === "Tab") {
+                e.preventDefault();  // Menonaktifkan tombol Tab
+            }
+        };
+
+        // Mencegah keluar dari tab atau menggunakan tombol "Alt+Tab"
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Alt" || event.key === "Tab" || event.key === "Escape") {
+                event.preventDefault();  // Mencegah kombinasi tombol untuk berpindah tab
+            }
+        });
+
+        // Mencegah elemen-elemen lain seperti form, tombol, dan tautan untuk di-klik
         document.querySelectorAll('form, button, input, a').forEach(function(el) {
             el.addEventListener('click', function(e) {
-                e.preventDefault();  // Mencegah interaksi pada elemen-elemen ini
+                e.preventDefault();  // Mencegah klik pada elemen-elemen ini
             });
         });
 
-        // Menonaktifkan klik pada tab, titik tiga, dan menu lainnya
+        // Menonaktifkan akses ke menu tab dan menu titik tiga
         window.addEventListener('focus', function() {
             setTimeout(function() {
                 document.activeElement.blur();  // Membuat elemen aktif kehilangan fokus
             }, 1);
         });
 
-        // Menonaktifkan interaksi dengan menu atau link
+        // Menggunakan event listener untuk mencegah interaksi dengan elemen apa pun
         document.querySelectorAll('a, button, input').forEach(function(el) {
             el.addEventListener('click', function(e) {
-                e.preventDefault();  // Mencegah klik pada menu atau tombol
+                e.preventDefault();  // Mencegah klik pada elemen-elemen ini
             });
         });
 
-        // Menonaktifkan tombol Alt+Tab untuk berpindah tab
-        document.onkeydown = function(e) {
-            if (e.key === 'Tab' || e.altKey) {
-                e.preventDefault();  // Mencegah Tab dan kombinasi Alt
+        // Mencegah pencetakan atau akses lainnya
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "PrintScreen" || e.key === "Ctrl+P") {
+                e.preventDefault();  // Mencegah pencetakan layar
             }
-        };
-
-        // Mencegah menu browser (titik tiga, menu +) muncul
-        document.addEventListener('keydown', function(event) {
-            if (event.key === "F12" || event.key === "Esc" || event.key === "Alt" || event.key === "Shift") {
-                event.preventDefault();
-            }
-        });
-
-        // Menonaktifkan kemampuan klik kanan dan kombinasi tombol lain
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();  // Mencegah klik kanan
         });
     </script>
 </body>
