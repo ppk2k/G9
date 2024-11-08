@@ -24,7 +24,8 @@
             color: white;
             font-size: 20px;
             padding: 10px;
-            width: 300px;
+            width: 80%;
+            max-width: 400px;
             text-align: center;
         }
 
@@ -36,6 +37,19 @@
 <body>
     <h1>Masukkan Domain Onion</h1>
     <input type="text" id="domainInput" placeholder="Masukkan Domain .onion" />
-    
+
     <script>
-        document
+        document.getElementById("domainInput").addEventListener("keypress", function(e) {
+            if (e.key === "Enter") {
+                const domain = this.value;
+                // Lakukan validasi domain disini
+                if (domain.endsWith(".onion")) {
+                    window.location.href = "member.html";  // Arahkan ke halaman member jika domain valid
+                } else {
+                    alert("Domain tidak valid. Pastikan menggunakan .onion");
+                }
+            }
+        });
+    </script>
+</body>
+</html>
