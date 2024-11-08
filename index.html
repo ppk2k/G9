@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman Penjara Tingkat Tinggi</title>
+    <title>Halaman Terkunci</title>
     <style>
         body {
             overflow: hidden; /* Menonaktifkan scroll */
@@ -40,12 +40,26 @@
         #message {
             font-size: 1.2em;
         }
+
+        a {
+            color: #00f;
+            pointer-events: none; /* Menonaktifkan klik pada link */
+        }
+
+        /* Menonaktifkan fitur tab dan pintasan */
+        .disabled {
+            pointer-events: none !important; 
+            display: none !important;
+        }
     </style>
 </head>
 <body>
     <h1>Halaman Terkunci</h1>
     <p id="message">Masukkan sesuatu di bawah ini untuk keluar.</p>
     <input type="text" id="inputField" placeholder="Ketik untuk keluar..." />
+
+    <!-- Contoh link yang tidak akan bisa diklik -->
+    <a href="https://www.example.com" id="link">Tautan yang tidak bisa diklik</a>
 
     <script>
         // Mencegah refresh halaman
@@ -65,10 +79,10 @@
             e.preventDefault();
         };
 
-        // Mencegah penggunaan tombol panah atau Tab
+        // Menonaktifkan Tab, back, dan navigasi halaman
         document.onkeydown = function(e) {
-            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(e.key)) {
-                e.preventDefault();
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Tab', 'F5'].includes(e.key)) {
+                e.preventDefault(); // Menonaktifkan tombol tab dan navigasi
             }
         };
 
@@ -78,11 +92,12 @@
             history.pushState(null, null, location.href); // Menjaga agar halaman tetap sama
         };
 
-        // Menonaktifkan fungsi untuk menambah tab
-        window.onbeforeunload = function(e) {
-            e.preventDefault();
-            e.returnValue = ''; // Menghentikan pengguna dari menutup atau mengganti tab
-        };
+        // Menonaktifkan link agar tidak bisa diklik
+        document.querySelectorAll('a').forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault(); // Mencegah aksi default link
+            });
+        });
 
         // Fokus pada input field
         document.getElementById("inputField").focus();
@@ -95,19 +110,13 @@
             }
         });
 
-        // Mencegah penambahan tab baru dengan menggunakan menu
-        window.addEventListener('keydown', function(e) {
-            if (e.key === "t" && e.ctrlKey) { // Menekan Ctrl+T untuk buka tab baru
-                e.preventDefault();
-            }
-        });
-        
-        // Mencegah menu dari browser seperti titik tiga
-        document.addEventListener("keydown", function(e) {
-            if (e.key === "F12" || (e.ctrlKey && e.shiftKey && e.key === "I") || e.ctrlKey && e.key === "U") {
-                e.preventDefault();
-            }
-        });
+        // Nonaktifkan semua tombol browser atau menu tambahan
+        window.onload = function() {
+            // Disable browser menu (titik tiga atau lainnya)
+            const browserMenu = document.querySelector('.disabled');
+            if (browserMenu) browserMenu.style.display = 'none';
+        };
+
     </script>
 </body>
 </html>
