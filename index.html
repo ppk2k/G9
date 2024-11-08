@@ -6,92 +6,87 @@
     <title>Halaman Penjara Tingkat Tinggi</title>
     <style>
         body {
-            overflow: hidden;  /* Menonaktifkan scroll */
-            pointer-events: none;  /* Menonaktifkan klik */
+            overflow: hidden; /* Menonaktifkan scroll */
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
             height: 100vh;
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: black;
+            flex-direction: column;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        input {
+            font-size: 1.5em;
+            padding: 10px;
+            width: 300px;
+            text-align: center;
+            border: 2px solid white;
+            background-color: transparent;
             color: white;
-            font-size: 24px;
+        }
+
+        input:focus {
+            outline: none;
+        }
+
+        #message {
+            font-size: 1.2em;
         }
     </style>
 </head>
 <body>
-    <h1>Halaman Terkunci - Penjara Tingkat Tinggi</h1>
-    <p>Anda tidak dapat meninggalkan halaman ini. Satu-satunya cara keluar adalah mematikan perangkat Anda.</p>
+    <h1>Halaman Terkunci</h1>
+    <p id="message">Masukkan sesuatu di bawah ini untuk keluar.</p>
+    <input type="text" id="inputField" placeholder="Ketik untuk keluar..." />
 
     <script>
-        // Mencegah refresh halaman (F5 dan Ctrl+R)
+        // Mencegah refresh halaman
         document.onkeydown = function(e) {
             if (e.key === 'F5' || (e.ctrlKey && e.key === 'r')) {
-                e.preventDefault();  // Mencegah refresh halaman
+                e.preventDefault();
             }
-        };
-
-        // Mencegah tombol Back dan tombol navigasi lainnya
-        history.pushState(null, null, location.href);
-        window.onpopstate = function () {
-            history.pushState(null, null, location.href);  // Menjaga halaman tetap sama
         };
 
         // Mencegah klik kanan
         document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();  // Mencegah menu klik kanan muncul
+            e.preventDefault();
         });
 
-        // Mencegah menggulir halaman
+        // Mencegah scroll
         window.onwheel = function(e) {
-            e.preventDefault();  // Menonaktifkan scroll mouse
+            e.preventDefault();
         };
 
-        // Mencegah penggunaan tombol arah untuk navigasi
+        // Mencegah penggunaan tombol panah atau Tab
         document.onkeydown = function(e) {
-            if (e.key === "ArrowUp" || e.key === "ArrowDown" || e.key === "ArrowLeft" || e.key === "ArrowRight") {
-                e.preventDefault();  // Mencegah penggunaan tombol panah
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(e.key)) {
+                e.preventDefault();
             }
         };
 
-        // Menonaktifkan Tab untuk berpindah antar elemen
-        document.onkeydown = function(e) {
-            if (e.key === "Tab") {
-                e.preventDefault();  // Menonaktifkan tombol Tab
-            }
+        // Mencegah keluar dengan tombol Back dan navigasi
+        history.pushState(null, null, location.href);
+        window.onpopstate = function() {
+            history.pushState(null, null, location.href); // Menjaga agar halaman tetap sama
         };
 
-        // Mencegah keluar dari tab atau menggunakan tombol "Alt+Tab"
-        document.addEventListener('keydown', function(event) {
-            if (event.key === "Alt" || event.key === "Tab" || event.key === "Escape") {
-                event.preventDefault();  // Mencegah kombinasi tombol untuk berpindah tab
-            }
-        });
+        // Fokus pada input field
+        document.getElementById("inputField").focus();
 
-        // Mencegah elemen-elemen lain seperti form, tombol, dan tautan untuk di-klik
-        document.querySelectorAll('form, button, input, a').forEach(function(el) {
-            el.addEventListener('click', function(e) {
-                e.preventDefault();  // Mencegah klik pada elemen-elemen ini
-            });
-        });
-
-        // Menonaktifkan akses ke menu tab dan menu titik tiga
-        window.addEventListener('focus', function() {
-            setTimeout(function() {
-                document.activeElement.blur();  // Membuat elemen aktif kehilangan fokus
-            }, 1);
-        });
-
-        // Menggunakan event listener untuk mencegah interaksi dengan elemen apa pun
-        document.querySelectorAll('a, button, input').forEach(function(el) {
-            el.addEventListener('click', function(e) {
-                e.preventDefault();  // Mencegah klik pada elemen-elemen ini
-            });
-        });
-
-        // Mencegah pencetakan atau akses lainnya
-        document.addEventListener('keydown', function(e) {
-            if (e.key === "PrintScreen" || e.key === "Ctrl+P") {
-                e.preventDefault();  // Mencegah pencetakan layar
+        // Jika input diisi, keluar dari halaman
+        document.getElementById("inputField").addEventListener("input", function() {
+            if (this.value.length > 0) {
+                // Mungkin Anda ingin melakukan sesuatu ketika input terisi, misalnya keluar dari halaman
+                alert("Anda berhasil keluar!"); // Hanya contoh, Anda bisa menambahkan pengalihan halaman jika diperlukan.
+                location.reload();  // Atau bisa dengan location.replace() atau keluar dari halaman
             }
         });
     </script>
