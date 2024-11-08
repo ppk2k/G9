@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect to Dark Web</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 300px;
+            background-color: #333;
+            border: 1px solid #444;
+            color: white;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #0e76a8;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0a5d6f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input type="text" placeholder="Enter .onion domain" id="onionInput">
+        <br>
+        <button onclick="connectToDarkWeb()">Connect</button>
+    </div>
+
+    <script>
+        function connectToDarkWeb() {
+            var onionDomain = document.getElementById('onionInput').value;
+            if (onionDomain) {
+                // Ini hanya contoh simulasi, tidak benar-benar menghubungkan
+                alert("Connecting to: " + onionDomain + ". Please use Tor browser to access.");
+            } else {
+                alert("Please enter a valid .onion domain.");
+            }
+        }
+    </script>
+</body>
+</html>
