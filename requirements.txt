@@ -2,8 +2,8 @@ name: Tor Connection Workflow
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # Menjalankan setiap hari pada tengah malam
-  workflow_dispatch:  # Memungkinkan eksekusi manual dari antarmuka GitHub
+    - cron: '0 0 * * *'  # Run every day at midnight
+  workflow_dispatch:  # Allows manual execution from GitHub interface
 
 jobs:
   connect_to_tor:
