@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman Terkunci</title>
+    <title>Penjara Web</title>
     <style>
         body {
-            overflow: hidden; /* Menonaktifkan scroll */
             background-color: black;
             color: white;
             font-family: Arial, sans-serif;
@@ -16,11 +15,12 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
+            overflow: hidden;
         }
 
         h1 {
-            font-size: 2em;
-            margin-bottom: 20px;
+            font-size: 3em;
+            text-align: center;
         }
 
         input {
@@ -37,86 +37,64 @@
             outline: none;
         }
 
-        #message {
-            font-size: 1.2em;
-        }
-
         a {
-            color: #00f;
-            pointer-events: none; /* Menonaktifkan klik pada link */
-        }
-
-        /* Menonaktifkan fitur tab dan pintasan */
-        .disabled {
-            pointer-events: none !important; 
-            display: none !important;
+            color: transparent;
+            pointer-events: none; /* Menonaktifkan klik pada tautan */
         }
     </style>
 </head>
 <body>
     <h1>Halaman Terkunci</h1>
-    <p id="message">Masukkan sesuatu di bawah ini untuk keluar.</p>
+    <p>Masukkan sesuatu untuk keluar.</p>
     <input type="text" id="inputField" placeholder="Ketik untuk keluar..." />
 
-    <!-- Contoh link yang tidak akan bisa diklik -->
-    <a href="https://www.example.com" id="link">Tautan yang tidak bisa diklik</a>
-
     <script>
-        // Mencegah refresh halaman
-        document.onkeydown = function(e) {
-            if (e.key === 'F5' || (e.ctrlKey && e.key === 'r') || e.key === 'Escape') {
-                e.preventDefault();
-            }
+        // Mencegah Refresh Halaman dan Menutup Tab
+        window.onbeforeunload = function(e) {
+            return "Anda tidak dapat meninggalkan halaman ini!";
         };
 
-        // Mencegah klik kanan
+        // Mengunci Navigasi dan Back Button
+        history.pushState(null, null, location.href);
+        window.onpopstate = function() {
+            history.pushState(null, null, location.href);
+        };
+
+        // Menonaktifkan Klik Kanan
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
 
-        // Mencegah scroll
-        window.onwheel = function(e) {
-            e.preventDefault();
-        };
-
-        // Menonaktifkan Tab, back, dan navigasi halaman
+        // Mencegah Pengguna Menggunakan Tab atau Jendela Baru
         document.onkeydown = function(e) {
-            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Tab', 'F5'].includes(e.key)) {
-                e.preventDefault(); // Menonaktifkan tombol tab dan navigasi
+            // Mencegah penggunaan keyboard untuk membuka tab baru
+            if (e.key === 'F5' || (e.ctrlKey && e.key === 'r') || e.key === 'Escape' || e.key === 'Tab' || e.ctrlKey && (e.key === 't' || e.key === 'w')) {
+                e.preventDefault();
             }
         };
 
-        // Mencegah keluar dengan tombol Back dan navigasi
-        history.pushState(null, null, location.href);
-        window.onpopstate = function() {
-            history.pushState(null, null, location.href); // Menjaga agar halaman tetap sama
-        };
-
-        // Menonaktifkan link agar tidak bisa diklik
+        // Menonaktifkan Akses ke Link
         document.querySelectorAll('a').forEach(function(link) {
             link.addEventListener('click', function(e) {
                 e.preventDefault(); // Mencegah aksi default link
             });
         });
 
-        // Fokus pada input field
+        // Fokuskan input untuk memaksa pengguna berinteraksi dengan kolom input
         document.getElementById("inputField").focus();
 
-        // Fungsi untuk keluar hanya jika input terisi
+        // Fungsi keluar hanya setelah input terisi
         document.getElementById("inputField").addEventListener("input", function() {
             if (this.value.length > 0) {
-                alert("Anda berhasil keluar!"); // Hanya contoh, Anda bisa menambahkan pengalihan halaman jika diperlukan.
-                location.reload();  // Atau bisa dengan location.replace() atau keluar dari halaman
+                alert("Anda berhasil keluar!"); // Pesan konfirmasi keluar
+                location.reload();  // Bisa mengganti dengan location.replace() untuk keluar
             }
         });
 
-        // Nonaktifkan semua tombol browser atau menu tambahan
-        window.onload = function() {
-            // Disable browser menu (titik tiga atau lainnya)
-            const browserMenu = document.querySelector('.disabled');
-            if (browserMenu) browserMenu.style.display = 'none';
+        // Mencegah Scroll
+        window.onwheel = function(e) {
+            e.preventDefault();
         };
-
     </script>
 </body>
 </html>
