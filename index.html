@@ -14,70 +14,11 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        input {
-            font-size: 1.5em;
-            padding: 10px;
-            width: 300px;
-            text-align: center;
-            border: 2px solid white;
-            background-color: transparent;
-            color: white;
-        }
-
-        input:focus {
-            outline: none;
         }
     </style>
 </head>
 <body>
-    <h1>Penjara Web - Tidak Bisa Keluar!</h1>
-    <input type="text" id="inputField" placeholder="Masukkan sesuatu untuk keluar..." />
-
-    <script>
-        // Menonaktifkan tombol kembali, refresh, dan popstate
-        window.onbeforeunload = function() {
-            return "Anda tidak bisa meninggalkan halaman ini!";
-        };
-        history.pushState(null, null, location.href);
-        window.onpopstate = function() {
-            history.pushState(null, null, location.href);
-        };
-
-        // Mencegah pengguna membuka tab baru atau menutup tab
-        document.onkeydown = function(e) {
-            if (e.key === 'F5' || e.ctrlKey && e.key === 'r' || e.key === 'Escape' || e.key === 'Tab') {
-                e.preventDefault();
-            }
-        };
-
-        // Mencegah klik kanan
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-        });
-
-        // Mencegah scroll
-        window.onwheel = function(e) {
-            e.preventDefault();
-        };
-
-        // Mencegah link klik untuk pergi ke halaman lain
-        document.querySelectorAll('a').forEach(function(link) {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-            });
-        });
-
-        // Keluar hanya jika input terisi
-        document.getElementById("inputField").addEventListener("input", function() {
-            if (this.value.length > 0) {
-                alert("Anda berhasil keluar!");
-                location.reload();  // Atau location.replace() untuk mengganti halaman
-            }
-        });
-    </script>
+    <h1>Selamat datang di Penjara Web</h1>
+    <p>Tunggu input untuk melanjutkan...</p>
 </body>
 </html>
