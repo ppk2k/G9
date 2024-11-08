@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verifikasi Kode</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        input {
+            background-color: transparent;
+            border: none;
+            border-bottom: 2px solid white;
+            color: white;
+            font-size: 20px;
+            padding: 10px;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        input:focus {
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Masukkan Kode atau Permintaan Akses Admin</h1>
+    <input type="text" id="accessCode" placeholder="Masukkan Kode Verifikasi" />
+
+    <script>
+        document.getElementById("accessCode").addEventListener("keypress", function(e) {
+            if (e.key === "Enter") {
+                const accessCode = this.value;
+                if (accessCode === "admin") {
+                    alert("Akses Admin Diberikan!");
+                    // Lakukan tindakan admin jika diperlukan
+                } else {
+                    alert("Kode tidak valid.");
+                }
+            }
+        });
+    </script>
+</body>
+</html>
