@@ -3,60 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connect to Dark Web</title>
+    <title>Tor Connection Simulation</title>
     <style>
         body {
-            background-color: black;
+            background-color: #000;
             color: white;
             font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
             text-align: center;
         }
-        input[type="text"] {
-            padding: 10px;
-            font-size: 16px;
-            width: 300px;
-            background-color: #333;
-            border: 1px solid #444;
-            color: white;
-            margin-bottom: 20px;
+
+        .neonText {
+            color: #0e76a8;
+            text-shadow: 0 0 5px #0e76a8, 0 0 10px #0e76a8, 0 0 15px #0e76a8;
+            font-size: 30px;
         }
+
+        #vpnStatus, #securityScan, #hiddenWiki {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        #vpnStatus {
+            color: green;
+        }
+
+        .spinner {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+            margin: auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        input {
+            width: 250px;
+            padding: 8px;
+            margin: 10px;
+            border-radius: 4px;
+            border: none;
+            background-color: #333;
+            color: white;
+        }
+
         button {
-            padding: 10px 20px;
-            background-color: #0e76a8;
+            padding: 10px;
+            background-color: #444;
             color: white;
             border: none;
-            font-size: 16px;
             cursor: pointer;
         }
-        button:hover {
-            background-color: #0a5d6f;
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <input type="text" placeholder="Enter .onion domain" id="onionInput">
-        <br>
-        <button onclick="connectToDarkWeb()">Connect</button>
+
+    <h1 class="neonText">Welcome to the Hidden World</h1>
+
+    <div id="vpnStatus">Connecting to VPN...</div>
+    <div class="spinner"></div>
+
+    <script>
+        // Simulate VPN connection
+        setTimeout(function() {
+            document.getElementById('vpnStatus').innerHTML = "VPN Connected. Anonymity Secure.";
+        }, 4000);
+    </script>
+
+    <!-- Login Form -->
+    <div id="loginForm" style="display:none;">
+        <h2 class="neonText">Login to .onion Site</h2>
+        <input type="text" placeholder="Username" id="username">
+        <input type="password" placeholder="Password" id="password">
+        <button onclick="verifyLogin()">Login</button>
+    </div>
+
+    <div id="securityScan">
+        <p>Running security scan...</p>
+        <div class="spinner"></div>
     </div>
 
     <script>
-        function connectToDarkWeb() {
-            var onionDomain = document.getElementById('onionInput').value;
-            if (onionDomain) {
-                // Ini hanya contoh simulasi, tidak benar-benar menghubungkan
-                alert("Connecting to: " + onionDomain + ". Please use Tor browser to access.");
+        setTimeout(function() {
+            document.getElementById('securityScan').innerHTML = "Security scan complete. Connection is secure.";
+        }, 5000); // Simulate security scan delay
+    </script>
+
+    <!-- Hidden Wiki Links -->
+    <div id="hiddenWiki">
+        <h2 class="neonText">Dark Web Resources</h2>
+        <ul>
+            <li><a href="http://hiddenwiki.onion" target="_blank">Visit the Hidden Wiki</a></li>
+            <li><a href="http://darkwebexample1.onion" target="_blank">DarkWeb Example 1</a></li>
+            <li><a href="http://darkwebexample2.onion" target="_blank">DarkWeb Example 2</a></li>
+        </ul>
+    </div>
+
+    <!-- Information about Tor -->
+    <div id="torInfo">
+        <h2 class="neonText">Learn More About Tor</h2>
+        <p>Tor is a free software for enabling anonymous communication on the Internet. Tor directs Internet traffic through a free, worldwide, volunteer overlay network consisting of more than seven thousand relays to conceal a user's location and usage from network surveillance or traffic analysis.</p>
+        <a href="https://www.torproject.org/about/overview.html" target="_blank">Visit the Tor Project Website</a>
+    </div>
+
+    <!-- Simulate Login Process -->
+    <script>
+        function verifyLogin() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            if (username && password) {
+                alert('Login Successful');
+                window.location.href = "http://hiddenwiki.onion"; // Redirect to .onion site
             } else {
-                alert("Please enter a valid .onion domain.");
+                alert('Please fill out all fields!');
             }
         }
+
+        setTimeout(function() {
+            document.getElementById('loginForm').style.display = "block"; // Display login form after VPN connection
+        }, 6000);
     </script>
+
 </body>
 </html>
