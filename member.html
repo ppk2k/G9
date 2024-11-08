@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Area</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        input {
+            background-color: transparent;
+            border: none;
+            border-bottom: 2px solid white;
+            color: white;
+            font-size: 20px;
+            padding: 10px;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        input:focus {
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Akun Terverifikasi</h1>
+    <p>Anda telah berhasil terverifikasi. Masukkan kode untuk melanjutkan.</p>
+    <input type="text" id="verificationCode" placeholder="Masukkan Kode Verifikasi" />
+
+    <script>
+        document.getElementById("verificationCode").addEventListener("keypress", function(e) {
+            if (e.key === "Enter") {
+                const code = this.value;
+                if (code === "12345") {  // Verifikasi dengan kode
+                    window.location.href = "kode.html";  // Arahkan ke kode.html
+                } else {
+                    alert("Kode salah. Coba lagi.");
+                }
+            }
+        });
+    </script>
+</body>
+</html>
