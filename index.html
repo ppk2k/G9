@@ -60,6 +60,39 @@
                 e.preventDefault();  // Mencegah interaksi pada elemen-elemen ini
             });
         });
+
+        // Menonaktifkan klik pada tab, titik tiga, dan menu lainnya
+        window.addEventListener('focus', function() {
+            setTimeout(function() {
+                document.activeElement.blur();  // Membuat elemen aktif kehilangan fokus
+            }, 1);
+        });
+
+        // Menonaktifkan interaksi dengan menu atau link
+        document.querySelectorAll('a, button, input').forEach(function(el) {
+            el.addEventListener('click', function(e) {
+                e.preventDefault();  // Mencegah klik pada menu atau tombol
+            });
+        });
+
+        // Menonaktifkan tombol Alt+Tab untuk berpindah tab
+        document.onkeydown = function(e) {
+            if (e.key === 'Tab' || e.altKey) {
+                e.preventDefault();  // Mencegah Tab dan kombinasi Alt
+            }
+        };
+
+        // Mencegah menu browser (titik tiga, menu +) muncul
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "F12" || event.key === "Esc" || event.key === "Alt" || event.key === "Shift") {
+                event.preventDefault();
+            }
+        });
+
+        // Menonaktifkan kemampuan klik kanan dan kombinasi tombol lain
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();  // Mencegah klik kanan
+        });
     </script>
 </body>
 </html>
